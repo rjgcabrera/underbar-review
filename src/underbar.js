@@ -99,7 +99,25 @@
   };
 
   // Produce a duplicate-free version of the array.
-  _.uniq = function(array, isSorted, iterator) {
+  _.uniq = function(array, iterator) {
+    var result = [];
+    if (iterator !== undefined) {
+      var iterVals = [];
+      _.each(array, function(elem, index) {
+        var tmp = iterator(elem);
+        if(_.indexOf(iterVals, tmp) === -1) {
+          iterVals.push(tmp);
+          result.push(elem);
+        }
+      });
+    } else {
+      _.each(array, function(elem) {
+        if(_.indexOf(result, elem) === -1) {
+          result.push(elem);
+        }
+      });
+    }
+    return result;
   };
 
 
